@@ -1,0 +1,1682 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{20180122 os-thread-regex}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{os}{%
+\section{OS}\label{os}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} create directory \PYZdq{}os\PYZus{}dir\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{os}\PY{o}{.}\PY{n}{makedirs}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{o}{!}ls
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-black}{\setlength{\fboxsep}{0pt}\colorbox{ansi-yellow}{20180110\strut}}                      disp.p
+\textcolor{ansi-black}{\setlength{\fboxsep}{0pt}\colorbox{ansi-yellow}{20180112\strut}}                      file.txt
+\textcolor{ansi-black}{\setlength{\fboxsep}{0pt}\colorbox{ansi-yellow}{20180115\strut}}                      file1.txt
+\textcolor{ansi-black}{\setlength{\fboxsep}{0pt}\colorbox{ansi-yellow}{20180116\strut}}                      file2.txt
+\textcolor{ansi-black}{\setlength{\fboxsep}{0pt}\colorbox{ansi-yellow}{20180117\strut}}                      \textcolor{ansi-blue}{os\_dir}
+20180122 os.ipynb             \textcolor{ansi-red}{practice\_LaTex.ipynb}
+\textcolor{ansi-red}{Coding\_quiz\_collections.ipynb} \textcolor{ansi-red}{practice\_python\_quiz.ipynb}
+b\_range.b                     \textcolor{ansi-blue}{대정리}
+binary.b
+
+    \end{Verbatim}
+
+    write - writing file - create txt - csv(comma seperate value) - always
+seperate value with comma
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data science}\PY{l+s+s2}{\PYZdq{}}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+            
+        \PY{n}{s2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data science2}\PY{l+s+s2}{\PYZdq{}}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test2.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+            
+        \PY{n}{s3} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data,science2}\PY{l+s+s2}{\PYZdq{}}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test3.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{o}{!}ls os\PYZus{}dir
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+test.txt  test2.txt test3.csv
+
+    \end{Verbatim}
+
+    \hypertarget{listdir}{%
+\subparagraph{listdir}\label{listdir}}
+
+\begin{itemize}
+\tightlist
+\item
+  read file list
+\item
+  return certain form of file
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} 파일 리스트 읽기}
+         \PY{n}{file\PYZus{}list} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{file\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['test2.txt', 'test3.csv', 'test.txt']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} txt 파일 리스트만 호출}
+         \PY{n}{result\PYZus{}1} \PY{o}{=} \PY{p}{[} \PY{n}{file\PYZus{}name} \PY{k}{for} \PY{n}{file\PYZus{}name} \PY{o+ow}{in} \PY{n}{file\PYZus{}list} \PY{k}{if} \PY{n}{file\PYZus{}name}\PY{o}{.}\PY{n}{endswith}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}if true, stay with list. if not, no return}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{result\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['test2.txt', 'test.txt']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} txt 파일이 아닌 파일 리스트만 호출}
+         \PY{n}{result\PYZus{}2} \PY{o}{=} \PY{p}{[} \PY{n}{file\PYZus{}name} \PY{k}{for} \PY{n}{file\PYZus{}name} \PY{o+ow}{in} \PY{n}{file\PYZus{}list} \PY{k}{if} \PY{o+ow}{not} \PY{n}{file\PYZus{}name}\PY{o}{.}\PY{n}{endswith}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{result\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['test3.csv']
+
+    \end{Verbatim}
+
+    \hypertarget{remove}{%
+\subparagraph{remove}\label{remove}}
+
+\begin{itemize}
+\tightlist
+\item
+  remove file
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{file\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test3.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{os}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{file\PYZus{}name}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{o}{!}ls os\PYZus{}dir
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+test.txt  test2.txt
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} for 반복문을 사용하여 모든 파일을 삭제할수 있다.}
+         \PY{n}{file\PYZus{}list} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{file\PYZus{}name} \PY{o+ow}{in} \PY{n}{file\PYZus{}list}\PY{p}{:}
+             \PY{n}{os}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{file\PYZus{}name}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{o}{!}ls os\PYZus{}dir
+         
+         \PY{c+c1}{\PYZsh{} 아무 것도 안 남아있다}
+\end{Verbatim}
+
+
+    \hypertarget{removedirs}{%
+\subparagraph{removedirs}\label{removedirs}}
+
+\begin{itemize}
+\tightlist
+\item
+  디렉토리 삭제
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{os}\PY{o}{.}\PY{n}{makedirs}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data science}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+             
+         \PY{n}{s2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data science2}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test2.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+             
+         \PY{n}{s3} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data,science2}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test3.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{o}{!}ls os\PYZus{}dir
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+test.txt  test2.txt test3.csv
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} 내부에 파일이 있으면 삭제되지 않는다.}
+         \PY{n}{os}\PY{o}{.}\PY{n}{removedirs}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        OSError                                   Traceback (most recent call last)
+
+        <ipython-input-29-ac051f4d2fe3> in <module>()
+          1 \# 내부에 파일이 있으면 삭제되지 않는다.
+    ----> 2 os.removedirs("os\_dir")
+    
+
+        /Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/os.py in removedirs(name)
+        236 
+        237     """
+    --> 238     rmdir(name)
+        239     head, tail = path.split(name)
+        240     if not tail:
+
+
+        OSError: [Errno 66] Directory not empty: 'os\_dir'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} 파일과 디렉토리 모두 삭제}
+         \PY{k+kn}{import} \PY{n+nn}{shutil}     \PY{c+c1}{\PYZsh{} module을 불러와서, remove tree(rmtree), 다 삭제 가능}
+         \PY{n}{shutil}\PY{o}{.}\PY{n}{rmtree}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{os\PYZus{}dir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{o}{!}ls os\PYZus{}dir
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ls: os\_dir: No such file or directory
+
+    \end{Verbatim}
+
+    \hypertarget{exists}{%
+\subparagraph{exists}\label{exists}}
+
+\begin{itemize}
+\tightlist
+\item
+  존재여부 확인하기
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{os}\PY{o}{.}\PY{n}{makedirs}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data science}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+             
+         \PY{n}{s2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data science2}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test2.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+             
+         \PY{n}{s3} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data,science2}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test3.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{n}{f}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test4.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} False
+\end{Verbatim}
+            
+    \hypertarget{isfile}{%
+\subparagraph{isfile}\label{isfile}}
+
+\begin{itemize}
+\tightlist
+\item
+  타입이 파일인지 확인하기
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} False
+\end{Verbatim}
+            
+    \hypertarget{isdir}{%
+\subparagraph{isdir}\label{isdir}}
+
+\begin{itemize}
+\tightlist
+\item
+  타입이 디렉토리인지 확인하기
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} False
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} True
+\end{Verbatim}
+            
+    \hypertarget{copy}{%
+\subparagraph{copy}\label{copy}}
+
+\begin{itemize}
+\tightlist
+\item
+  복사하기
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{o}{!}ls os\PYZus{}dir
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+copy.txt  test.txt  test2.txt test3.csv
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{k+kn}{import} \PY{n+nn}{shutil}
+         \PY{n}{shutil}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/test.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/copy.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} 'os\_dir/copy.txt'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/copy.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/copy.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{o}{!}ls os\PYZus{}dir
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+copy.txt  test.txt  test2.txt test3.csv
+
+    \end{Verbatim}
+
+    \hypertarget{rename}{%
+\subparagraph{rename}\label{rename}}
+
+\begin{itemize}
+\tightlist
+\item
+  이름바꾸기
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{os}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/copy.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/rename.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/copy.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} False
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/rename.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{o}{!}ls os\PYZus{}dir
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rename.txt test.txt   test2.txt  test3.csv
+
+    \end{Verbatim}
+
+    \hypertarget{chmod}{%
+\subparagraph{chmod}\label{chmod}}
+
+\begin{itemize}
+\tightlist
+\item
+  권한 설정
+\item
+  파일 타입{[}:1{]}, 소유자 권한{[}1:4{]} 그룹 권한{[}4:7{]} 공개
+  권한{[}7:{]}
+\item
+  ex) drwxr\_x\_\_x
+\item
+  r(read), w(write), x(excute)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} 8진수 octet : 7(8) \PYZhy{}\PYZgt{} 111(2), 4(8) \PYZhy{}\PYZgt{} 100(2)}
+         \PY{n}{os}\PY{o}{.}\PY{n}{chmod}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/rename.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mo}{0o444}\PY{p}{)} \PY{c+c1}{\PYZsh{} 모든 사용자 read 권한만 갖도록 (\PYZhy{}rw\PYZhy{}r\PYZhy{}\PYZhy{}r\PYZhy{}\PYZhy{}) \PYZhy{}\PYZgt{} (\PYZhy{}r\PYZhy{}\PYZhy{}r\PYZhy{}\PYZhy{}r\PYZhy{}\PYZhy{})}
+\end{Verbatim}
+
+
+    8진수 octet (0\textasciitilde{}7) - 0 -\textgreater{} 000 (rwx) - 5
+-\textgreater{} 101 - 7 -\textgreater{} 111
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{os}\PY{o}{.}\PY{n}{chmod}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/rename.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mo}{0o644}\PY{p}{)} \PY{c+c1}{\PYZsh{} 파일 소유자는 작성권한을 갖도록  (\PYZhy{}r\PYZhy{}\PYZhy{}r\PYZhy{}\PYZhy{}r\PYZhy{}\PYZhy{}) \PYZhy{}\PYZgt{} (\PYZhy{}rw\PYZhy{}r\PYZhy{}\PYZhy{}r\PYZhy{}\PYZhy{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{os}\PY{o}{.}\PY{n}{chmod}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{os\PYZus{}dir/rename.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mo}{0o000}\PY{p}{)} \PY{c+c1}{\PYZsh{} 모든권한제거  (\PYZhy{}rw\PYZhy{}r\PYZhy{}\PYZhy{}r\PYZhy{}\PYZhy{}) \PYZhy{}\PYZgt{} (\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{})}
+\end{Verbatim}
+
+
+    \hypertarget{thread}{%
+\section{Thread}\label{thread}}
+
+    프로그램을 실행하면서 시간이 걸린다면 대부분 아래 두가지중 한가지의
+이유이다 - I/O 바운드 : 대부분의 경우 (data Input/Output) - CPU 바운드 :
+계산량이 굉장히 많을 경우
+
+    thread를 통해 성능을 향상시킬 수 있다
+
+    \textbf{Synchronous 동기} - 한가지가 끝나야 다음 작업 수행 - 순서대로 -
+데이터가 오고 가는 idle time을 비워놓고 기다린다
+
+\textbf{Asynchronous 비동기} - 결과는 상관 없이 독립적으로 수행 후, -
+결과를 순서대로 리턴하지는 않는다. - 응답이 오는 대로 저장 - 병렬로 동시
+처리 가능 - 1번의 idle time 때 2번 처리를 요청한다 (기다리지 않는다) -
+ex) 먼저 끝나는 대로 저장 - ex) 크롤링, 자동 업로드 때 사용 등등
+
+결론 : idle time을 줄이자
+
+싱글thread, 멀티thread : cpu 사용 \ldots{} 싱글은 타임라인 하나를
+순서대로. 멀티thread는 타임라인을 쪼개서 idle을 활용
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{k+kn}{import} \PY{n+nn}{threading}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{ls1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{ls2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{def} \PY{n+nf}{threading\PYZus{}func\PYZus{}1}\PY{p}{(}\PY{n}{number}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{number}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{ls1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{idx}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{idx} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ls1:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{idx}\PY{p}{)} \PY{c+c1}{\PYZsh{} Threading속도를 보기 위해 백개마다 프린트}
+         
+         \PY{k}{def} \PY{n+nf}{threading\PYZus{}func\PYZus{}2}\PY{p}{(}\PY{n}{number}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{number}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{ls2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{idx}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{idx} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ls2:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{idx}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{c+c1}{\PYZsh{} thread 모듈 불러옴}
+         \PY{c+c1}{\PYZsh{} Thread라는 class 호출}
+         
+         \PY{n}{th1} \PY{o}{=} \PY{n}{threading}\PY{o}{.}\PY{n}{Thread}\PY{p}{(}\PY{n}{target}\PY{o}{=}\PY{n}{threading\PYZus{}func\PYZus{}1}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12000}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+         \PY{n}{th1}\PY{o}{.}\PY{n}{start}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{th2} \PY{o}{=} \PY{n}{threading}\PY{o}{.}\PY{n}{Thread}\PY{p}{(}\PY{n}{target}\PY{o}{=}\PY{n}{threading\PYZus{}func\PYZus{}2}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13000}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+         \PY{n}{th2}\PY{o}{.}\PY{n}{start}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ls1: 0
+ls1: 100
+ls1: 200
+ls1: 300
+ls1: 400
+ls1: 500
+ls1: 600
+ls1: 700
+ls2: 0
+ls2: 100
+ls2: 200
+ls2: 300
+ls2: 400
+ls2: 500
+ls2: 600
+ls2: 700
+ls2: 800
+ls2: 900
+ls2: 1000
+ls2: 1100
+ls2: 1200
+ls2: 1300
+ls2: 1400
+ls2: 1500
+ls2: 1600
+ls2: 1700
+ls2: 1800
+ls2: 1900
+ls2: 2000
+ls2: 2100
+ls2: 2200
+ls2: 2300
+ls2: 2400
+ls2: 2500
+ls2: 2600
+ls2: 2700
+ls2: 2800
+ls2: 2900
+ls2: 3000
+ls2: 3100
+ls2: 3200
+ls2: 3300
+ls2:ls1: 3400
+ls2: 3500
+ls2: 3600
+ls2: 3700
+ls2: 3800
+ls2: 3900
+ls2:  800
+ls1: 900
+ls1: 1000
+ls1: 1100
+ls1: 1200
+4000
+ls2: 4100
+ls2: 4200
+ls2: 4300
+ls2: 4400
+ls2: 4500
+ls2: 4600
+ls2: 4700
+ls2: 4800
+ls2: 4900
+ls2: 5000
+ls2: 5100
+ls2: 5200
+ls1:ls2: 5300
+ls2: 5400
+ls2: 5500
+ls2: 5600
+ls2: 5700
+ls2: 5800
+ls2: 5900
+ls2: 6000
+ls2: 6100
+ls2: 6200
+ls2: 6300
+ls2: 6400
+ls2: 6500
+ls2: 6600
+ls2: 6700
+ls2: 6800
+ls2: 6900 
+ls2: 7000
+ls2: 7100
+ls2: 7200
+ls2:1300
+ls1: 1400
+ls1: 1500
+ls1: 1600
+ls1: 1700
+ls1: 1800
+ls1: 1900
+ls1: 2000
+ls1: 2100
+ls1: 2200
+ls1: 2300
+ 7300
+ls2: 7400
+ls2: 7500
+ls2: 7600
+ls2: 7700
+ls2: 7800
+ls2: 7900
+ls2: 8000
+ls2: 8100ls1:
+ls2: 8200
+ 2400
+ls1: 2500
+ls1: 2600
+ls1: 2700
+ls1: 2800
+ls1: 2900
+ls1: 3000
+ls1: 3100
+ls1: 3200
+ls1: 3300
+ls1: 3400
+ls1: 3500
+ls1: 3600
+ls1: 3700
+ls1: 3800
+ls1: 3900
+ls2:ls1: 4000
+ls1: 4100
+ls1: 4200
+ 8300
+ls2: 8400
+ls2: 8500
+ls2: 8600
+ls2: 8700
+ls2: 8800
+ls2: 8900
+ls2: 9000
+ls2: 9100
+ls2: 9200
+ls2:ls1:  4300
+ls1: 4400
+ls1: 4500
+ls1: 4600
+ls1: 4700
+ls1: 4800
+ls1: 4900
+ls1: 5000
+ls1: 9300
+ls2: 9400
+ls2: 9500
+ls2: 9600
+ls2: 9700
+ls2: 9800
+ls2: 9900
+ls2:5100
+ls1: 5200
+ls1: 5300
+ls1: 5400
+ls1: 5500
+ls1: 5600
+ls1: 5700
+ls1: 5800
+ls1: 10000
+ls2: 10100
+ls2: 10200
+ls2: 10300
+ls2: 10400
+ls2: 10500
+ls2: 10600
+ls2: 5900
+ls1: 6000
+ls1: 6100
+ls1: 6200
+ls1: 6300
+ls1: 6400
+ls1: 6500
+ls1: 6600
+ls1: 6700
+ls1: 6800
+ls1:  10700
+ls2: 10800
+ls2: 10900
+ls2: 11000
+ls2: 6900
+ls1: 7000
+ls1: 7100
+ls1: 7200
+ls1: 7300
+ls1: 7400
+ls1: 7500
+ls1: 7600
+ls1: 7700
+ls1: 7800
+ls1: 7900
+11100
+ls2: 11200
+ls2: 11300
+ls2: 11400
+ls2: 11500
+ls2: 11600
+ls1: 8000
+ls1: 8100
+ls1: 8200
+ls1: 8300
+ls1: 8400
+ls1: 8500
+ls1: 8600
+ls1: 8700
+ls1: 8800
+ls1: 8900
+ls1: 9000
+ls1: 9100
+ls1: 9200
+ls1: 9300
+ls1: 9400
+ls1: 9500
+ls1: 9600
+ls1: 9700
+ls1: 9800
+ls1: 9900
+ls1: 10000
+ls1: 10100
+ls1: 10200
+ls1: 10300ls2:
+ls1: 10400
+ls1: 10500
+ls1: 10600
+ls1: 10700
+ls1: 10800
+ls1: 10900
+ls1: 11000
+ls1: 11100
+ls1: 11200
+ls1: 11300
+ls1: 11400
+ls1:  11500
+ls1: 11600
+ls1: 11700
+ls1: 1180011700
+ls2: 11800
+ls2: 11900
+ls2: 12000
+
+ls2: 12100
+ls2: 12200
+ls2: 12300
+ls2: 12400
+ls2: 12500
+ls2: 12600
+ls2: 12700
+ls2: 12800
+ls2: 12900
+ls1: 11900
+
+    \end{Verbatim}
+
+    \hypertarget{regex-regular-expression-uxc815uxaddcuxd45cuxd604uxc2dd}{%
+\section{Regex (regular expression :
+정규표현식)}\label{regex-regular-expression-uxc815uxaddcuxd45cuxd604uxc2dd}}
+
+\begin{itemize}
+\item
+  match
+\item
+  search
+\item
+  findall
+\item
+  split
+\item
+  sub
+\item
+  pattern
+\item
+  가독성, 비직관적 등의 이유로 필요한 경우에만 쓰는 것을 권장
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{k+kn}{import} \PY{n+nn}{re}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{} 테스트용 문자열}
+         \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fast campus datascience fighting. datascience fighting. fast campus fighting.}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \hypertarget{match}{%
+\subparagraph{match}\label{match}}
+
+\begin{itemize}
+\tightlist
+\item
+  문자열의 가장 앞에서 부터 일치하는 패턴찾기
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} 무조건 문자열의 가장 앞에서부터 match되는 문자열 찾음}
+         \PY{n}{result1} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{match}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+         \PY{n}{result2} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{match}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{campus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{result1 :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{result1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{result2 :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{result2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+result1 : <\_sre.SRE\_Match object; span=(0, 4), match='fast'>
+result2 : None
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{k}{if} \PY{n}{result1}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{result1}\PY{o}{.}\PY{n}{group}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result1}\PY{o}{.}\PY{n}{start}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result1}\PY{o}{.}\PY{n}{end}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result1}\PY{o}{.}\PY{n}{span}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+fast 0 4 (0, 4)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{k}{if} \PY{n}{result2}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{result2}\PY{o}{.}\PY{n}{group}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result2}\PY{o}{.}\PY{n}{start}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result2}\PY{o}{.}\PY{n}{end}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result2}\PY{o}{.}\PY{n}{span}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} result2는 결과가 없기 때문에 리턴이 없음}
+\end{Verbatim}
+
+
+    \hypertarget{search}{%
+\subparagraph{search}\label{search}}
+
+\begin{itemize}
+\tightlist
+\item
+  문자열에서 가장 첫번째로 일치하는 패턴찾기
+\item
+  가장 앞에서부터가 아니더라도, 어느 곳에서든 가장 먼저 나오는 것
+  순서대로 리턴
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{result3} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+         \PY{n}{result4} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{campus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{result3 :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{result3}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{result4 :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{result4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+result3 : <\_sre.SRE\_Match object; span=(0, 4), match='fast'>
+result4 : <\_sre.SRE\_Match object; span=(5, 11), match='campus'>
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{k}{if} \PY{n}{result3}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{result3}\PY{o}{.}\PY{n}{group}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result3}\PY{o}{.}\PY{n}{start}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result3}\PY{o}{.}\PY{n}{end}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result3}\PY{o}{.}\PY{n}{span}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+fast 0 4 (0, 4)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{k}{if} \PY{n}{result4}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{result4}\PY{o}{.}\PY{n}{group}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result4}\PY{o}{.}\PY{n}{start}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result4}\PY{o}{.}\PY{n}{end}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{result4}\PY{o}{.}\PY{n}{span}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+campus 5 11 (5, 11)
+
+    \end{Verbatim}
+
+    \hypertarget{findall}{%
+\subparagraph{findall}\label{findall}}
+
+\begin{itemize}
+\tightlist
+\item
+  일치하는 모든 패턴찾아 리스트 형태와 발생 횟수로 리턴
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{result5} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+         \PY{n}{result6} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fighting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{result5 :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{result5}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{result5}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{result6 :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{result6}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{result6}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+result5 : ['fast', 'fast'] 2
+result6 : ['fighting', 'fighting', 'fighting'] 3
+
+    \end{Verbatim}
+
+    \hypertarget{split}{%
+\subparagraph{split}\label{split}}
+
+\begin{itemize}
+\tightlist
+\item
+  패턴으로 나누기
+\item
+  문자열을 특정 패턴으로 나누기
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{c+c1}{\PYZsh{} 패턴을 기준으로 나누기}
+         \PY{n}{s1} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fast campus datascience school fighting!}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{result7} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{result7 :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{result7}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+result7 : ['fast ', 'ampus datas', 'ien', 'e s', 'hool fighting!']
+
+    \end{Verbatim}
+
+    \hypertarget{sub-substitute}{%
+\subparagraph{sub (substitute)}\label{sub-substitute}}
+
+\begin{itemize}
+\tightlist
+\item
+  일치하는 패턴 대체하기
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{s2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{slow campus datascience school fighting! slow campus datascience school fighting!}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{result8} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{result8 :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{result8}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+result8 : fast campus datascience school fighting! fast campus datascience school fighting!
+
+    \end{Verbatim}
+
+    \hypertarget{pattern}{%
+\subparagraph{pattern}\label{pattern}}
+
+    문자 - \texttt{\textbackslash{}d} : 숫자 - \texttt{\textbackslash{}D} :
+비숫자 - \texttt{\textbackslash{}w} : 숫자 문자 \_(언더스코어) -
+\texttt{\textbackslash{}W} : 비알파벳 문자 - \texttt{\textbackslash{}s}
+: 공백 문자 - \texttt{\textbackslash{}S} : 비공백 문자
+
+지정자 - \texttt{{[}{]}} : 문자 - \texttt{-} : 범위 - \texttt{.} :
+하나의 문자 - \texttt{?} : 0회 또는 1회 반복 - \texttt{*} : 0회 이상
+반복 - \texttt{+} : 1회 이상 반복 - \texttt{\{m,n\}} :
+m\textasciitilde{}n회 반복 - \texttt{()} : 그룹핑
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k+kn}{import} \PY{n+nn}{string}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{c+c1}{\PYZsh{} 사용 가능한 모든 문자 호출}
+         \PY{n}{pt} \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{printable}
+         \PY{n+nb}{len}\PY{p}{(}\PY{n}{pt}\PY{p}{)}\PY{p}{,} \PY{n}{pt}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} (100,
+          '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"\#\$\%\&\textbackslash{}'()*+,-./:;<=>?@[\textbackslash{}\textbackslash{}]\^{}\_`\{|\}\textasciitilde{} \textbackslash{}t\textbackslash{}n\textbackslash{}r\textbackslash{}x0b\textbackslash{}x0c')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{} 숫자와 비숫자를 모두 찾기}
+         \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)} \PY{c+c1}{\PYZsh{} 숫자 데이터}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)} \PY{c+c1}{\PYZsh{} 숫자 데이터가 아닌 나머지 (비숫자)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0123456789
+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"\#\$\%\&'()*+,-./:;<=>?@[\textbackslash{}]\^{}\_`\{|\}\textasciitilde{} 	
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} 문자와 비문자 찾기}
+         \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)} \PY{c+c1}{\PYZsh{} 문자 + \PYZus{} : 식별자로 사용할수 있는 문자들}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)} \PY{c+c1}{\PYZsh{} 비문자 + \PYZus{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\_
+!"\#\$\%\&'()*+,-./:;<=>?@[\textbackslash{}]\^{}`\{|\}\textasciitilde{} 	
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{pt}\PY{p}{)} \PY{c+c1}{\PYZsh{} 공백문자}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{pt}\PY{p}{)} \PY{c+c1}{\PYZsh{} 비공백문자}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[' ', '\textbackslash{}t', '\textbackslash{}n', '\textbackslash{}r', '\textbackslash{}x0b', '\textbackslash{}x0c']
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '!', '"', '\#', '\$', '\%', '\&', "'", '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\textbackslash{}\textbackslash{}', ']', '\^{}', '\_', '`', '\{', '|', '\}', '\textasciitilde{}']
+
+    \end{Verbatim}
+
+    \hypertarget{uxbc94uxc704}{%
+\subparagraph{\texorpdfstring{\texttt{-}
+범위}{- 범위}}\label{uxbc94uxc704}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{c+c1}{\PYZsh{} [0\PYZhy{}9] : 숫자 모두}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[0\PYZhy{}9]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0123456789
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{c+c1}{\PYZsh{} [a\PYZhy{}z] : 알파벳 소문자}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[a\PYZhy{}z]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+abcdefghijklmnopqrstuvwxyz
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{c+c1}{\PYZsh{} [a\PYZhy{}z] : 알파벳 한바퀴 돌아서}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[A\PYZhy{}z]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[\textbackslash{}]\^{}\_`
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{c+c1}{\PYZsh{} [a\PYZhy{}zA\PYZhy{}Z] : 알파벳 모두}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[a\PYZhy{}zA\PYZhy{}Z]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{c+c1}{\PYZsh{} [012345] == [0\PYZhy{}5]}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[012345]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[0\PYZhy{}5]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+012345
+012345
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{c+c1}{\PYZsh{} [234789] = [2\PYZhy{}47\PYZhy{}9]}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[234789]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[2\PYZhy{}47\PYZhy{}9]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+234789
+234789
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{c+c1}{\PYZsh{} [bcde] == [bc\PYZhy{}e] = [b\PYZhy{}e]}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[bcde]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[bc\PYZhy{}e]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+          \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[b\PYZhy{}e]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+bcde
+bcde
+bcde
+
+
+    \end{Verbatim}
+
+    \hypertarget{uxbb38uxc790-uxd558uxb098}{%
+\subparagraph{\texorpdfstring{\texttt{.} 문자
+하나}{. 문자 하나}}\label{uxbb38uxc790-uxd558uxb098}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{ls} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aab}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a0b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{ls}\PY{p}{:}
+              \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a.b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)} \PY{c+c1}{\PYZsh{} a + 모든문자하나 + b}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{result}\PY{p}{)}
+              
+          \PY{c+c1}{\PYZsh{} a와 b사이 아무것도 올 수 없어 매칭되지 않기 때문에 출력이 안 됨}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+aab ['aab']
+a0b ['a0b']
+abc []
+
+    \end{Verbatim}
+
+    \hypertarget{uxd68c-uxb610uxb294-1uxd68c-uxbc18uxbcf5}{%
+\subparagraph{\texorpdfstring{\texttt{?} 0회 또는 1회
+반복}{? 0회 또는 1회 반복}}\label{uxd68c-uxb610uxb294-1uxd68c-uxbc18uxbcf5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aab}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a3b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{l}\PY{p}{:}
+              \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a.?b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)} \PY{c+c1}{\PYZsh{} a + 모든문자0개 또는 1개 + b}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+aab ['aab']
+a3b ['a3b']
+abc ['ab']
+accb []
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aab}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a3b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a8b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{l}\PY{p}{:}
+              \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a[0\PYZhy{}4]?b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)} \PY{c+c1}{\PYZsh{} a + 0\PYZhy{}4숫자 0개 또는 1개 + b}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+aab ['ab']
+a3b ['a3b']
+a8b []
+abc ['ab']
+accb []
+
+    \end{Verbatim}
+
+    \hypertarget{uxd68c-uxc774uxc0c1-uxbc18uxbcf5}{%
+\subparagraph{\texorpdfstring{\texttt{*} : 0회 이상
+반복}{* : 0회 이상 반복}}\label{uxd68c-uxc774uxc0c1-uxbc18uxbcf5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ac}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abbbbc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a3bec}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{l}\PY{p}{:}
+              \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ab*c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)} \PY{c+c1}{\PYZsh{} a + b가 0회이상 반복 + c}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ac ['ac']
+abc ['abc']
+abbbbc ['abbbbc']
+a3bec []
+
+    \end{Verbatim}
+
+    \hypertarget{uxd68c-uxc774uxc0c1-uxbc18uxbcf5}{%
+\subparagraph{\texorpdfstring{\texttt{+} : 1회 이상
+반복}{+ : 1회 이상 반복}}\label{uxd68c-uxc774uxc0c1-uxbc18uxbcf5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ac}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abbbbc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a3bec}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{l}\PY{p}{:}
+              \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ab+c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)} \PY{c+c1}{\PYZsh{} a + b가 1회이상 반복 + c}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ac []
+abc ['abc']
+abbbbc ['abbbbc']
+a3bec []
+
+    \end{Verbatim}
+
+    \hypertarget{mn-mnuxd68c-uxbc18uxbcf5}{%
+\subparagraph{\texorpdfstring{\texttt{\{m,n\}} : m\textasciitilde{}n회
+반복}{\{m,n\} : m\textasciitilde{}n회 반복}}\label{mn-mnuxd68c-uxbc18uxbcf5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ac}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abcasd}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abbc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abbbc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abbbbbbc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{l}\PY{p}{:}
+              \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ab}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{1,3\PYZcb{}c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)} \PY{c+c1}{\PYZsh{} a + b가 1회\PYZti{}3회 반복 + c}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ac []
+abcasd ['abc']
+abbc ['abbc']
+abbbc ['abbbc']
+abbbbbbc []
+
+    \end{Verbatim}
+
+    \hypertarget{uxadf8uxb8f9uxd551}{%
+\subparagraph{\texorpdfstring{\texttt{()} :
+그룹핑}{() : 그룹핑}}\label{uxadf8uxb8f9uxd551}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aaa5.djfi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abdddc5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1abbbbc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a3.bec}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{l}\PY{p}{:}
+              \PY{n}{result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{([0\PYZhy{}9]+)[.]([a\PYZhy{}z]}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)} \PY{c+c1}{\PYZsh{} 숫자 1회이상 + . + 문자 2회}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+aaa5.djfi [('5', 'dj')]
+abdddc5 []
+1abbbbc []
+a3.bec [('3', 'be')]
+
+    \end{Verbatim}
+
+    \hypertarget{example}{%
+\subparagraph{example}\label{example}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{c+c1}{\PYZsh{} 이메일주소 찾기}
+          \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{저의 이메일 주소는 pdj1224@daum.com 입니다. 또한 radajin1224@gmail.com 역시 마찬가지 입니다.}\PY{l+s+s2}{\PYZdq{}} 
+          \PY{n}{p} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[0\PYZhy{}9a\PYZhy{}zA\PYZhy{}Z]+@[0\PYZhy{}9a\PYZhy{}z]+}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{.[0\PYZhy{}9a\PYZhy{}z]+}\PY{l+s+s2}{\PYZdq{}}  \PY{c+c1}{\PYZsh{} 실제 . 의 expression이 아닌 .으로 쓰기 위해 \PYZbs{} 사용}
+          \PY{n}{result} \PY{o}{=} \PY{k+kc}{True} \PY{k}{if} \PY{n}{re}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{n}{s}\PY{p}{)} \PY{k}{else} \PY{k+kc}{False}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{저의 이메일 주소는 pdj1224daum.com 입니다. 또한 radajin1224@gmailcom 역시 마찬가지 입니다.}\PY{l+s+s2}{\PYZdq{}} 
+          \PY{n}{p} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[0\PYZhy{}9a\PYZhy{}zA\PYZhy{}Z]+@[0\PYZhy{}9a\PYZhy{}z]+}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{.[0\PYZhy{}9a\PYZhy{}z]+}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{result} \PY{o}{=} \PY{k+kc}{True} \PY{k}{if} \PY{n}{re}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{n}{s}\PY{p}{)} \PY{k}{else} \PY{k+kc}{False}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True ['pdj1224@daum.com', 'radajin1224@gmail.com']
+False []
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{c+c1}{\PYZsh{} 주민등록번호 : group으로 나눠서 변경하기}
+          \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{저의 전화번호는 010\PYZhy{}1111\PYZhy{}2222이고 주민등록번호는 871211\PYZhy{}4029348 입니다}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{p} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{([0\PYZhy{}9]}\PY{l+s+si}{\PYZob{}6\PYZcb{}}\PY{l+s+s2}{)\PYZhy{}([0\PYZhy{}9]}\PY{l+s+si}{\PYZob{}7\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{g\PYZlt{}1\PYZgt{}\PYZhy{}********}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)} \PY{c+c1}{\PYZsh{} \PYZbs{}g\PYZlt{}1\PYZgt{} : 그룹핑 첫번째 데이터 사용 : 문자열 g가 아닌, 의미 있는 g다}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}122}]:} '저의 전화번호는 010-1111-2222이고 주민등록번호는 871211-******** 입니다'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{c+c1}{\PYZsh{} 전화번호 추출해서 바꾸기}
+          \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{안녕하세요. 저의 전화번호는 영일공\PYZhy{}48구삼삼7이사 입니다. 또한 010사팔구삼삼구삼일 입니다.}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{c+c1}{\PYZsh{} 문자열 패턴}
+          \PY{n}{p} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[0\PYZhy{}9영공일이둘삼사오육칠팔구빵]}\PY{l+s+si}{\PYZob{}3\PYZcb{}}\PY{l+s+s1}{[\PYZhy{}]?[0\PYZhy{}9영공일이둘삼사오육칠팔구빵]}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{3,4\PYZcb{}[\PYZhy{}]?[0\PYZhy{}9영공일이둘삼사오육칠팔구빵]}\PY{l+s+si}{\PYZob{}4\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{n}{numbers} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+          \PY{n}{numbers}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}126}]:} ['영일공-48구삼삼7이사', '010사팔구삼삼구삼일']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{k}{def} \PY{n+nf}{change\PYZus{}phone\PYZus{}str}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} 문자열 패턴}
+              \PY{n}{p} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[0\PYZhy{}9영공일이둘삼사오육칠팔구빵]}\PY{l+s+si}{\PYZob{}3\PYZcb{}}\PY{l+s+s1}{[\PYZhy{}]?[0\PYZhy{}9영공일이둘삼사오육칠팔구빵]}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{3,4\PYZcb{}[\PYZhy{}]?[0\PYZhy{}9영공일이둘삼사오육칠팔구빵]}\PY{l+s+si}{\PYZob{}4\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}
+              
+              \PY{c+c1}{\PYZsh{} 찾아 놓은 패턴 number에 저장}
+              \PY{n}{numbers} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{n}{s}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} 패턴에 맞는 데이터 문자로된 숫자 숫자로 바꾸기}
+              \PY{n}{result} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{preprocess\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{공}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{영}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{일}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{둘}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{이}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{삼}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{사}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{오}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{5}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{육}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{6}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{칠}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{7}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{팔}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{8}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{구}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{9}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+              \PY{p}{\PYZcb{}}
+              
+              \PY{k}{for} \PY{n}{number} \PY{o+ow}{in} \PY{n}{numbers}\PY{p}{:}
+                  \PY{n}{mod\PYZus{}numbers} \PY{o}{=} \PY{n}{number}
+                  \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{preprocess\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{mod\PYZus{}numbers} \PY{o}{=} \PY{n}{mod\PYZus{}numbers}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{key}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n}{value}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{result}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mod\PYZus{}numbers}\PY{p}{)} 
+              
+              \PY{c+c1}{\PYZsh{} 결과값을 replace 하기}
+              \PY{n}{result\PYZus{}str} \PY{o}{=} \PY{n}{s}
+              \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{number} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{numbers}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{result\PYZus{}str} \PY{o}{=} \PY{n}{result\PYZus{}str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{number}\PY{p}{,} \PY{n}{result}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{)}
+              \PY{k}{return} \PY{n}{result\PYZus{}str}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{s}\PY{p}{,} \PY{n}{change\PYZus{}phone\PYZus{}str}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:} ('안녕하세요. 저의 전화번호는 영일공-48구삼삼7이사 입니다. 또한 010사팔구삼삼구삼일 입니다.',
+           '안녕하세요. 저의 전화번호는 01048933724 입니다. 또한 01048933931 입니다.')
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
